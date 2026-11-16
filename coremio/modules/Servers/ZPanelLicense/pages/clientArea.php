@@ -15,29 +15,29 @@ $isIssued    = !empty($licenseKey);
 
 <link rel="stylesheet" href="coremio/modules/Servers/ZPanelLicense/assets/css/client.css">
 
-<div class="zp-wisecp-license" style="font-family: inherit;">
+<div class="zp-wisecp-license">
   
   <!-- Üst Başlık Kartı -->
-  <div class="zp-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; margin-bottom: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+  <div class="zp-card">
+    <div class="zp-header-flex">
       <div>
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-          <h2 style="font-size: 19px; font-weight: 700; margin: 0; color: #0f172a;"><?php echo htmlspecialchars($packageName); ?></h2>
-          <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">zPanel v1.0</span>
+        <div class="zp-title-wrap">
+          <h2 class="zp-main-title"><?php echo htmlspecialchars($packageName, ENT_QUOTES, 'UTF-8'); ?></h2>
+          <span class="zp-ver-badge">zPanel v1.0</span>
         </div>
-        <div style="font-size: 13px; color: #64748b;">
+        <div class="zp-meta-sub">
           Durum: 
           <?php if (strtolower($status) === 'active'): ?>
-            <span style="background: #dcfce7; color: #15803d; font-weight: 600; padding: 2px 8px; border-radius: 9999px;">Aktif</span>
+            <span class="zp-status-active">Aktif</span>
           <?php else: ?>
-            <span style="background: #f1f5f9; color: #475569; font-weight: 600; padding: 2px 8px; border-radius: 9999px;"><?php echo htmlspecialchars($status); ?></span>
+            <span class="zp-status-default"><?php echo htmlspecialchars($status, ENT_QUOTES, 'UTF-8'); ?></span>
           <?php endif; ?>
         </div>
       </div>
       
       <?php if ($isIssued): ?>
       <div>
-        <button type="button" class="btn btn-primary" onclick="navigator.clipboard.writeText('<?php echo addslashes($licenseKey); ?>'); this.innerText = 'Kopyalandı!'; setTimeout(() => this.innerText = 'Lisans Anahtarını Kopyala', 2500);" style="background: #2563eb; color: #fff; font-weight: 600; padding: 9px 18px; border-radius: 8px; border: none; cursor: pointer;">
+        <button type="button" class="zp-btn-copy" onclick="navigator.clipboard.writeText('<?php echo addslashes($licenseKey); ?>'); this.innerText = 'Kopyalandı!'; setTimeout(() => this.innerText = 'Lisans Anahtarını Kopyala', 2500);">
           Lisans Anahtarını Kopyala
         </button>
       </div>
@@ -46,35 +46,38 @@ $isIssued    = !empty($licenseKey);
   </div>
 
   <!-- Lisans Detayı -->
-  <div class="zp-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; margin-bottom: 20px;">
-    <h3 style="font-size: 15px; font-weight: 700; margin: 0 0 14px 0; color: #1e293b;">Resmi Lisans Bilgileri</h3>
+  <div class="zp-card">
+    <h3 class="zp-section-title">Resmi Lisans Bilgileri</h3>
     
     <?php if ($isIssued): ?>
-      <div style="background: #0f172a; border-radius: 8px; padding: 16px 20px; font-family: ui-monospace, monospace; font-size: 16px; font-weight: 700; color: #38bdf8; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <span><?php echo htmlspecialchars($licenseKey); ?></span>
-        <span style="font-size: 11.5px; color: #94a3b8; font-family: sans-serif; font-weight: normal; background: #1e293b; padding: 3px 8px; border-radius: 4px;">Partner API Onaylı</span>
+      <div class="zp-key-box">
+        <span><?php echo htmlspecialchars($licenseKey, ENT_QUOTES, 'UTF-8'); ?></span>
+        <span class="zp-key-tag">Partner API Onaylı</span>
       </div>
 
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div class="zp-ip-panel">
+        <div class="zp-ip-inner">
           <div>
-            <div style="font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">LİSANSA TANIMLI SUNUCU IP</div>
-            <div style="font-weight: 700; font-family: ui-monospace, monospace; font-size: 15px; color: #0f172a;">
-              <?php echo htmlspecialchars($licenseIp ?: 'Tanımlanmadı (Kurulumda Otomatik Kilitlenir)'); ?>
+            <div class="zp-ip-label">LİSANSA TANIMLI SUNUCU IP</div>
+            <div class="zp-ip-val">
+              <?php echo htmlspecialchars($licenseIp ?: 'Tanımlanmadı (Kurulumda Otomatik Kilitlenir)', ENT_QUOTES, 'UTF-8'); ?>
             </div>
           </div>
           
-          <form method="post" action="" style="display: flex; gap: 8px; align-items: center;">
+          <form method="post" action="" class="zp-ip-form">
+            <?php if (function_exists('token')): ?>
+              <input type="hidden" name="token" value="<?php echo token(); ?>">
+            <?php endif; ?>
             <input type="hidden" name="module_action" value="ChangeIP">
-            <input type="text" name="new_ip" value="<?php echo htmlspecialchars($licenseIp); ?>" placeholder="Yeni IP (Örn: 185.120.45.67)" required style="border: 1px solid #cbd5e1; padding: 7px 12px; border-radius: 6px; font-family: ui-monospace, monospace; font-size: 13px; width: 210px;">
-            <button type="submit" style="background: #0f172a; color: #ffffff; border: none; padding: 7px 15px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer;">
+            <input type="text" name="new_ip" value="<?php echo htmlspecialchars($licenseIp, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Yeni IP (Örn: 185.120.45.67)" required class="zp-ip-input">
+            <button type="submit" class="zp-ip-submit">
               IP Güncelle
             </button>
           </form>
         </div>
       </div>
     <?php else: ?>
-      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 16px; color: #92400e; font-size: 13.5px;">
+      <div class="zp-alert-pending">
         Lisans anahtarınız henüz oluşturulmadı veya provizyon aşamasındadır. Lütfen birkaç dakika sonra sayfayı yenileyiniz.
       </div>
     <?php endif; ?>
@@ -82,11 +85,11 @@ $isIssued    = !empty($licenseKey);
 
   <?php if ($isIssued): ?>
   <!-- Kurulum Kılavuzu -->
-  <div class="zp-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px;">
-    <h3 style="font-size: 15px; font-weight: 700; margin: 0 0 10px 0; color: #1e293b;">Hızlı Sunucu Kurulum Komutu</h3>
-    <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Sunucunuzun root SSH terminaline bağlanarak aşağıdaki tek satırlık komutu çalıştırabilirsiniz:</p>
-    <div style="background: #0f172a; color: #38bdf8; font-family: ui-monospace, monospace; padding: 14px 18px; border-radius: 8px; font-size: 13px; overflow-x: auto;">
-      curl -fsSL https://get.zepanel.com/install.sh | bash -s -- --license=<?php echo htmlspecialchars($licenseKey); ?>
+  <div class="zp-card">
+    <h3 class="zp-section-title">Hızlı Sunucu Kurulum Komutu</h3>
+    <p class="zp-guide-p">Sunucunuzun root SSH terminaline bağlanarak aşağıdaki tek satırlık komutu çalıştırabilirsiniz:</p>
+    <div class="zp-code-terminal">
+      curl -fsSL https://get.zepanel.com/install.sh | bash -s -- --license=<?php echo htmlspecialchars($licenseKey, ENT_QUOTES, 'UTF-8'); ?>
     </div>
   </div>
   <?php endif; ?>
