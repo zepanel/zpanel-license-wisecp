@@ -123,6 +123,14 @@ class ZPanelLicense extends ServerModule
         return ['status' => 'error', 'message' => $res['message'] ?: 'IP güncellenemedi.'];
     }
 
+    // WISECP snake_case method aliases for universal core compatibility
+    public function test($options = []) { return $this->TestConnection($options); }
+    public function create($params = []) { return $this->CreateAccount($params); }
+    public function suspend($params = []) { return $this->SuspendAccount($params); }
+    public function unsuspend($params = []) { return $this->UnsuspendAccount($params); }
+    public function terminate($params = []) { return $this->TerminateAccount($params); }
+    public function change_ip($params = []) { return $this->ChangeIP($params); }
+
     /**
      * Müşteri Alanı Görünümü (Client Area)
      */
