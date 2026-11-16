@@ -1,4 +1,4 @@
-﻿# zPanel License Provisioning ServerModule for WISECP V3
+# zPanel License Provisioning ServerModule for WISECP V3
 
 WISECP v3 için zPanel Lisans provizyonlama ve tanımlı IP yönetimi modülü.
 
