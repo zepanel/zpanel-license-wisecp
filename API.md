@@ -25,3 +25,4 @@ Accept: application/json
 | `TerminateAccount` / `terminate` | `POST` | `/orders/:orderId/licenses/:licenseId/release` | Lisansı havuza iade ederek serbest bırakma |
 | `ChangeIP` / `change_ip` | `POST` | `/orders/:orderId/licenses/:licenseId/info` | Lisans IP / Host güncelleme |
 | `ClientArea` / `clientArea` | Dahili | `pages/clientArea.php` | Lisans anahtarı gösterimi ve tek tık kurulum kılavuzu |
+
